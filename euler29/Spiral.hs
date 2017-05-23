@@ -1,3 +1,4 @@
+module Spiral where
 -- Starting with the number 1 and moving to the right in a clockwise direction a 5 by 5 spiral is formed as follows:
 
 -- 21 22 23 24 25
@@ -37,6 +38,19 @@ spiralAppend :: Integer -> [[Integer]] -> [[Integer]]
 spiralAppend n [[]] = [[]]
 spiralAppend n [r] = [r ++ [n]]
 spiralAppend n (r : rs) = (r ++ [n]) : spiralAppend (n + 1) rs
+
+spiralPrepend :: Integer -> [[Integer]] -> [[Integer]]
+spiralPrepend n [[]] = [[]]
+spiralPrepend n [r] = [n : r]
+spiralPrepend n (r : rs) = (n : r) : spiralPrepend (n - 1) rs
+
+spiralTop :: Integer -> [[Integer]] -> [[Integer]]
+spiralTop _ [[]] = [[]]
+spiralTop n (r : rs) = (take (length r) [n..]) : (r : rs)
+
+spiralBottom :: Integer -> [[Integer]] -> [[Integer]]
+spiralBottom _ [[]] = [[]]
+spiralBottom n (r : rs) =  (r : rs) ++ [(reverse (take (length r) [n..]))]
 
 -- spiral :: Int -> [[Int]]
 -- spiral 0 = [[1]] 
