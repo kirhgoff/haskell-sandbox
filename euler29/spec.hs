@@ -44,3 +44,22 @@ main = hspec $ do
 	    it "works for two rows" $ do
 	      spiralBottom 4 [[1], [2]] `shouldBe` [[1], [2], [4]]
 	      spiralBottom 6 [[1, 2], [3, 4]] `shouldBe` [[1, 2], [3, 4], [7, 6]]
+
+  	describe "cornerFunctions" $ do
+	    it "topLeft" $ do
+	      topLeft [[1, 2], [3, 4]] `shouldBe` 1
+
+	    it "topRight" $ do
+	      topRight [[1, 2], [3, 4]] `shouldBe` 2
+
+	    it "bottomLeft" $ do
+	      bottomLeft [[1, 2], [3, 4]] `shouldBe` 3
+
+	    it "bottomRight" $ do
+	      bottomRight [[1, 2], [3, 4]] `shouldBe` 4
+
+    describe "finalFunction" $ do
+      it "works" $ do
+        spiral 0 `shouldBe` [[1]]
+        spiral 1 `shouldBe` [[7,8,9],[6,1,2],[5,4,3]]
+

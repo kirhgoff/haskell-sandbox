@@ -1,4 +1,5 @@
 module Spiral where
+import Debug.Trace
 -- Starting with the number 1 and moving to the right in a clockwise direction a 5 by 5 spiral is formed as follows:
 
 -- 21 22 23 24 25
@@ -50,13 +51,22 @@ spiralTop n (r : rs) = (take (length r) [n..]) : (r : rs)
 
 spiralBottom :: Integer -> [[Integer]] -> [[Integer]]
 spiralBottom _ [[]] = [[]]
-spiralBottom n (r : rs) =  (r : rs) ++ [(reverse (take (length r) [n..]))]
+spiralBottom n (r : rs) =  (r : rs) ++ [reverse (take (length r) [n..])]
 
--- spiral :: Int -> [[Int]]
--- spiral 0 = [[1]] 
--- spiral radius = 
--- 	let (r : rs) = spiral (radius - 1)    
--- 	in spiralAppend (r rs)
+topRight rs = last (head rs)
+bottomRight rs = last (last rs)
+bottomLeft rs = head (last rs)
+topLeft rs = head (head rs)
+
+spiral :: Integer -> [[Integer]]
+spiral 0 = [[1]] 
+spiral radius = m4
+  where 
+    m = spiral (radius - 1)
+    m1 = spiralAppend (topRight (m) + 1) m
+    m2 = spiralBottom (bottomRight (m1) + 1) m1
+    m3 = spiralPrepend (bottomLeft (m2) + toInteger(length m2)) m2
+    m4 = spiralTop (topLeft (m3) + 1) m3
 
 
 
