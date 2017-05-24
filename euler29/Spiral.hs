@@ -68,5 +68,14 @@ spiral radius = m4
     m3 = spiralPrepend (bottomLeft (m2) + toInteger(length m2)) m2
     m4 = spiralTop (topLeft (m3) + 1) m3
 
+diagonal :: Integer -> Integer
+diagonal 0 = 1
+diagonal n = (2 * n) + diagonal (n-1)  
+
+diagonalList :: Integer -> [Integer]
+diagonalList 0 = [1]
+diagonalList n = 
+  let prevList = diagonalList (n - 1)
+  in (2 * n + head prevList) : prevList
 
 
