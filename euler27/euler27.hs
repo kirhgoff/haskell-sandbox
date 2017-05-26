@@ -13,9 +13,17 @@
 -- e.g. |11|=11|11|=11 and |−4|=4|−4|=4
 -- Find the product of the coefficients, aa and bb, for the quadratic expression that produces the maximum number of primes for consecutive values of nn, starting with n=0n=0.
 
-import Data.Numbers.Primes
+-- import Data.Numbers.Primes
 import Data.Function (on)
 import Data.List (maximumBy)
+
+isPrime :: Int -> Bool
+isPrime n
+    | n <= 1 = False
+    | n == 2 = True
+    | n `rem` 2 == 0 = False
+    | otherwise  = null [x | x <- [3,5..limit], n `rem` x == 0]
+        where limit = floor . sqrt . fromIntegral $ n
 
 third(_, _, x) = x
 formula n a b = n^2 + a*n + b
