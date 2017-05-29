@@ -7,4 +7,17 @@
 -- 1×£1 + 1×50p + 2×20p + 1×5p + 1×2p + 3×1p
 -- How many different ways can £2 be made using any number of coins?
 
-maximumCoins amount coin = div amount coin
+removeItem _ [] = []
+removeItem x (y:ys) | x == y  = removeItem x ys
+                    | otherwise = y : removeItem x ys
+
+maximumCount amount coin = div amount coin
+
+variations :: Integer -> [Integer] -> [[(Integer, Integer)]]
+variations amount _ | amount <= 0 = [[]]
+variations amount coins = 
+  let permutations = [(coin, count) | coin <- coins, count <- [0..(maximumCount amount coin)]]
+  in map (\(x, y) -> (x, y) : concat (variations (amount - x * y) (removeItem x coins))) permutations
+
+
+  
