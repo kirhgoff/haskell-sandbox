@@ -6,6 +6,10 @@
 
 -- 1×£1 + 1×50p + 2×20p + 1×5p + 1×2p + 3×1p
 -- How many different ways can £2 be made using any number of coins?
+import Data.List
+import Data.Ord
+import Data.Set (Set)
+import qualified Data.Set as Set
 
 removeItem _ [] = []
 removeItem x (y:ys) | x == y  = removeItem x ys
@@ -13,11 +17,38 @@ removeItem x (y:ys) | x == y  = removeItem x ys
 
 maximumCount amount coin = div amount coin
 
-variations :: Integer -> [Integer] -> [[(Integer, Integer)]]
-variations amount _ | amount <= 0 = [[]]
-variations amount coins = 
-  let permutations = [(coin, count) | coin <- coins, count <- [0..(maximumCount amount coin)]]
-  in map (\(x, y) -> (x, y) : concat (variations (amount - x * y) (removeItem x coins))) permutations
+variations :: Integer -> [Integer] -> [Set(Integer, Integer)]
+variations amount coins = permutate amount coins Set.empty
 
+permutate :: Integer -> [Integer] -> Set (Integer,Integer) -> [Set(Integer, Integer)]
+permutate amount coins results 
+  | amount <= 0 && not (null (coins)) = [Set.empty]
+  | amount > 0 && null coins = [Set.empty]
+  | amount == 0 && null coins = [results]
 
-  
+permutate amount coins results =
+  let 
+    permutations = [(coin, count) | coin <- coins, count <- [0..(maximumCount amount coin)]]
+    eachOne (x,y) = permutate (amount - x * y) (removeItem x coins) (Set.insert (x,y) results)
+    solutions = concat(map eachOne permutations)
+  in 
+    filter (not . Set.null) solutions
+
+prettyPrint m = intercalate "\n" (map (intercalate "\t") mstr)
+  where mstr = map (map show) m
+
+-- Another approach with data types 
+-- Need to remove duplication branches
+
+type Coin = Integer 
+data CoinSet = CoinSet {
+  face :: Coin,
+  count :: Integer
+}
+data Change = Change (Set CoinSet)
+
+instance Show CoinSet where
+  show (CoinSet face count) = show face ++ "x" ++ show count
+
+instance Ord CoinSet where
+  compare = (comparing face) `mappend` (comparing count)
