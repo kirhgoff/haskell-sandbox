@@ -27,3 +27,15 @@ main = hspec $ do
         digit 17 `shouldBe` 3
         digit 18 `shouldBe` 1
         digit 19 `shouldBe` 4
+
+      it "return correct digit in more more complex case" $ do
+        digit 20 `shouldBe` 1
+        digit 21 `shouldBe` 5
+        digit 22 `shouldBe` 1
+        digit 23 `shouldBe` 6
+        digit 24 `shouldBe` 1
+        digit 25 `shouldBe` 7
+        digit 26 `shouldBe` 1
+        digit 27 `shouldBe` 8
+        digit 28 `shouldBe` 1
+        digit 29 `shouldBe` 9

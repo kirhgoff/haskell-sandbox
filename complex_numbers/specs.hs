@@ -1,0 +1,29 @@
+import Test.Hspec
+import Test.QuickCheck
+import Complex
+
+main :: IO ()
+main = hspec $ do
+  describe "Complex" $ do
+    describe "real" $ do
+      it "return real part of a complex number" $ do
+        real (Complex 12 23)  `shouldBe` 12
+
+    describe "imag" $ do
+      it "return image part of a complex number" $ do
+        imag (Complex 12 23)  `shouldBe` 23
+
+    describe "add" $ do
+      it "adds two complex numbers" $ do
+        add (Complex 12 23) (Complex (-12) 43)  `shouldBe` (Complex 0 66)
+        (Complex 12 23) + (Complex (-12) 43)  `shouldBe` (Complex 0 66)
+
+    describe "mul" $ do
+      it "multiplies two complex numbers" $ do
+        mul (Complex 3 2) (Complex 1 7)  `shouldBe` (Complex (-11) 23)
+        (Complex 3 2) * (Complex 1 7)  `shouldBe` (Complex (-11) 23)
+
+    describe "square" $ do
+      it "squares the complex number" $ do
+        square (Complex 1 1)  `shouldBe` Complex 0 2
+        (Complex 1 1)^2  `shouldBe` Complex 0 2
