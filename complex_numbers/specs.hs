@@ -1,6 +1,7 @@
 import Test.Hspec
 import Test.QuickCheck
 import Complex
+import Limit
 
 main :: IO ()
 main = hspec $ do
@@ -27,3 +28,16 @@ main = hspec $ do
       it "squares the complex number" $ do
         square (Complex 1 1)  `shouldBe` Complex 0 2
         (Complex 1 1)^2  `shouldBe` Complex 0 2
+
+    describe "modulo" $ do
+      it "gives the squared magnitude of a complex number" $ do
+        modulo (Complex 3 4)  `shouldBe` 25
+
+  describe "Limit" $ do
+    describe "projection" $ do
+      it "builds the sequence of numbers" $ do
+        take 3 (projection (add (Complex 1 2)) (Complex 0 0))  `shouldBe` [(Complex 0 0), (Complex 1 2), (Complex 2 4)]
+
+    describe "indexed_projection" $ do
+      it "builds the sequence of numbers" $ do
+        take 3 (projection (add (Complex 1 2)) (Complex 0 0))  `shouldBe` [(Complex 0 0), (Complex 1 2), (Complex 2 4)]
