@@ -8,11 +8,11 @@ data Limit = Infinity Integer | Stable
 projection :: (Complex -> Complex) -> Complex -> [Complex]
 projection func z = z : projection func (func z)
 
-limit_checked_projection :: (z -> Bool) -> [z] -> [Bool]
-limit_checked_projection pred proj = map pred proj 
+limit_checked :: (z -> Bool) -> [z] -> [Bool]
+limit_checked pred proj = map pred proj 
 
-indexed_projection :: (Complex -> Complex) -> Complex -> [(Integer, Complex)]
-indexed_projection func z = zip [0..] (projection (add (Complex 1 1)) (Complex 0 0))
+indexed :: [z] -> [(Integer, z)]
+indexed proj = zip [0..] proj
 
 first_acceptable :: (a -> Bool) -> [a] -> a
 first_acceptable pred ips = head (dropWhile (\x -> not (pred x)) ips)
