@@ -1,5 +1,4 @@
 import Test.Hspec
-import Test.QuickCheck
 import Complex
 import Limit
 
@@ -39,5 +38,9 @@ main = hspec $ do
         take 3 (projection (add (Complex 1 2)) (Complex 0 0))  `shouldBe` [(Complex 0 0), (Complex 1 2), (Complex 2 4)]
 
     describe "indexed_projection" $ do
-      it "builds the sequence of numbers" $ do
+      it "builds the sequence of indexed numbers" $ do
         take 3 (projection (add (Complex 1 2)) (Complex 0 0))  `shouldBe` [(Complex 0 0), (Complex 1 2), (Complex 2 4)]
+
+    describe "first_acceptable" $ do
+      it "returns index of first acceptable element" $ do
+        first_acceptable (\z -> (modulo z) > 4) (projection (add (Complex 1 1)) (Complex 0 0))  `shouldBe` 2
