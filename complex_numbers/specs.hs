@@ -37,6 +37,11 @@ main = hspec $ do
       it "builds the sequence of numbers" $ do
         take 3 (projection (add (Complex 1 2)) (Complex 0 0))  `shouldBe` [(Complex 0 0), (Complex 1 2), (Complex 2 4)]
 
+    describe "limit_checked_projection" $ do
+      it "convert sequence of elements to boolean" $ do -- TODO try to redo it with where
+        take 3 (limit_checked_projection (\z -> (modulo z) > 4) (projection (add (Complex 1 1)) (Complex 0 0)))  `shouldBe` [False, False, True]
+
+-- TODO ask David about code style
     describe "indexed_projection" $ do
       it "builds the sequence of indexed numbers" $ do
         take 3 (projection (add (Complex 1 2)) (Complex 0 0))  `shouldBe` [(Complex 0 0), (Complex 1 2), (Complex 2 4)]
