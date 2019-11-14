@@ -46,6 +46,11 @@ main = hspec $ do
       it "builds the sequence of indexed numbers" $ do
         take 3 (indexed (limit_checked ((>10) . modulo) (projection (add (Complex 1 2)) (Complex 0 0))))  `shouldBe` [(0, False), (1, False), (2, True)]
 
-    describe "first_acceptable" $ do
-      it "returns index of first acceptable element" $ do
-        first_acceptable (\z -> (modulo z) > 4) (projection (add (Complex 1 1)) (Complex 0 0))  `shouldBe` 2
+    describe "only_for" $ do
+      it "returns a part of projection" $ do
+        only_for 3 (projection (+1) 0)  `shouldBe` [0, 1, 2]
+
+    describe "limit" $ do
+      it "returns a limit" $ do
+        limit 0 (+1) 10 (>5)  `shouldBe` Just 6
+        limit 0 (+1) 10 (>20)  `shouldBe` Nothing
