@@ -1,11 +1,11 @@
 module Complex where
 
-data Complex = Complex Float Float deriving (Show, Eq)
+data Complex = Complex Double Double deriving (Show, Eq)
 
-real :: Complex -> Float
+real :: Complex -> Double
 real (Complex re _) = re
 
-imag :: Complex -> Float
+imag :: Complex -> Double
 imag (Complex _ im) = im
 
 add :: Complex -> Complex -> Complex
@@ -17,7 +17,7 @@ mul (Complex re1 im1) (Complex re2 im2) = Complex (re1 * re2  - im1 * im2) (re2 
 square :: Complex -> Complex
 square a = mul a a
 
-modulo :: Complex -> Float
+modulo :: Complex -> Double
 modulo (Complex re im) = re^2 + im^2 
 
 instance Num Complex where
