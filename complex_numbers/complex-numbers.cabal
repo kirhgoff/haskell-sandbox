@@ -37,5 +37,6 @@ test-suite complex-numbers-test
   build-depends:
       base >=4.7 && <5
     , complex-numbers-library
-    , hspec    
+    , hspec
+    , array    
   default-language: Haskell2010

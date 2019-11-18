@@ -1,6 +1,7 @@
 import Test.Hspec
 import Complex
 import Limit
+import AsciiRenderer
 
 main :: IO ()
 main = hspec $ do
@@ -54,3 +55,11 @@ main = hspec $ do
       it "returns a limit" $ do
         limit 0 (+1) 10 (>5)  `shouldBe` Just 6
         limit 0 (+1) 10 (>20)  `shouldBe` Nothing
+
+  describe "AsciiRenderer" $ do
+    describe "limit_to_color" $ do
+      it "return presentation of limit" $ do
+        limit_to_color Nothing 5  `shouldBe` ' '
+        limit_to_color (Just 0) 5  `shouldBe` ' '
+        limit_to_color (Just 1) 5  `shouldBe` '.'
+        limit_to_color (Just 4) 5  `shouldBe` 'W'
