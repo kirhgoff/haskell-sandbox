@@ -3,8 +3,6 @@ module Limit where
 import Data.List
 import Complex
 
-data Limit = Infinity Integer | Stable
-
 projection :: (z -> z) -> z -> [z]
 projection func z = z : projection func (func z)
 
