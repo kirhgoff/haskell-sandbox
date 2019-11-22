@@ -2,6 +2,7 @@ import Test.Hspec
 import Complex
 import Limit
 import AsciiRenderer
+import Data.Array
 
 main :: IO ()
 main = hspec $ do
@@ -59,7 +60,9 @@ main = hspec $ do
   describe "AsciiRenderer" $ do
     describe "limit_to_color" $ do
       it "return presentation of limit" $ do
-        limit_to_color Nothing 5  `shouldBe` ' '
-        limit_to_color (Just 0) 5  `shouldBe` ' '
-        limit_to_color (Just 1) 5  `shouldBe` '.'
-        limit_to_color (Just 4) 5  `shouldBe` 'W'
+        let chars = listArray (0, 4) ['W', '=', '_', '.', ' '] 
+        limit_to_color Nothing chars 10  `shouldBe` 'W'
+        limit_to_color (Just 0) chars 10  `shouldBe` 'W'
+        limit_to_color (Just 1) chars 10  `shouldBe` 'W'
+        limit_to_color (Just 2) chars 10  `shouldBe` '='
+        limit_to_color (Just 3) chars 10  `shouldBe` '='

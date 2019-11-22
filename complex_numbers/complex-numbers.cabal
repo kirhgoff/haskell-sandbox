@@ -19,7 +19,7 @@ extra-source-files:  CHANGELOG.md
 
 library complex-numbers-library
   exposed-modules:    Complex, Limit, Conversion, AsciiRenderer
-  build-depends:      base >=4.7 && <5, array
+  build-depends:      base >=4.7 && <5, array, split
   default-language: Haskell2010
 
 executable complex-numbers
@@ -27,7 +27,9 @@ executable complex-numbers
   -- other-modules:
   -- other-extensions:
   build-depends:       base >=4.12 && <4.13,
-    complex-numbers-library
+    complex-numbers-library,
+    array,
+    split
   -- hs-source-dirs:
   default-language:    Haskell2010
 
@@ -36,8 +38,9 @@ test-suite complex-numbers-test
   main-is: Specs.hs
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
-    , complex-numbers-library
-    , hspec
-    , array    
+      base >=4.7 && <5,
+      complex-numbers-library,
+      split,
+      hspec,
+      array    
   default-language: Haskell2010
